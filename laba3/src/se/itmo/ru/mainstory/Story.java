@@ -1,10 +1,22 @@
 package se.itmo.ru.mainstory;
+
 import se.itmo.ru.abstracts.Person;
 import se.itmo.ru.abstracts.ReasonOfArgue;
+import se.itmo.ru.enums.HealthCondition;
 
 public class Story {
 
-    public static void story(Person person1, Person person2, ReasonOfArgue reasonOfArgue){
+    public static void story(Person sick, Person good, ReasonOfArgue reasonOfArgue) {
+        Person person1;
+        Person person2;
+        if ((sick.getCondition() == HealthCondition.GOOD) && (good.getCondition() == HealthCondition.SICK)) {
+            person1 = good;
+            person2 = sick;
+        } else {
+            person1 = sick;
+            person2 = good;
+        }
+        person1.setTemperature(40);
         person1.continued();
         person1.chew("");
         System.out.print(" и,");
@@ -25,6 +37,6 @@ public class Story {
         person2.wantedToLose();
         reasonOfArgue.remain();
         System.out.print("и ");
-        person2.willGetPrize(reasonOfArgue.toString(), person1);
+        person2.willGetPrize(reasonOfArgue, person1);
     }
 }

@@ -1,34 +1,40 @@
 package se.itmo.ru.abstracts;
+
 import se.itmo.ru.interfaces.ObjectActions;
+
 import java.util.Objects;
 
 abstract public class ReasonOfArgue implements ObjectActions {
     private String owner;
-    private String name;
-    public ReasonOfArgue(String name){
+    private final String name;
+
+    public ReasonOfArgue(String name) {
         this.name = name;
     }
-    public void remain(){
+
+    public void remain() {
         System.out.println("Осталась ещё одна " + name + ", ");
     }
+
     @Override
     public void whoIsOwner(Person person1, Person person2) {
-        if (person1.isWin()){
+        if (person1.isWin()) {
             this.owner = person2.toString();
             person1.setWin(false);
-        }
-        else{
+        } else {
             this.owner = person1.toString();
             person2.setWin(false);
         }
     }
-    public String getOwner(){
+
+    public String getOwner() {
         return this.owner;
     }
 
     public String getName() {
         return name;
     }
+
     @Override
     public String toString() {
         return this.name;

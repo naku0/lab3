@@ -4,10 +4,11 @@ public enum Adjectives {
     TRIPLE("тройной "),
     SUGARY(" приторного ")
     ;
-    private String name;
+    private final String name;
     Adjectives(String name){
         this.name = name;
     }
+
     public String getName() {
         return name;
     }

@@ -1,19 +1,21 @@
 package se.itmo.ru;
+
+import se.itmo.ru.abstracts.ReasonOfArgue;
+import se.itmo.ru.enums.HealthCondition;
 import se.itmo.ru.heroes.*;
 import se.itmo.ru.UsableObj.*;
 import se.itmo.ru.mainstory.Story;
 
 public class Main {
     public static void main(String[] args) {
-
-        Karlson karlson = new Karlson("Карлсон");
-        Malysh malysh = new Malysh("Малыш");
-        karlson.setTemperature(40.0);
+        Hero karlson = new Hero("Карлсон", HealthCondition.SICK);
+        Hero malysh = new Hero("Малыш", HealthCondition.GOOD);
         Argue newArgue = new Argue(karlson, malysh);
         Chocolate chocolate = new Chocolate("шоколадка");
-        Story.story(karlson,malysh,chocolate);
+        Story.story(karlson, malysh, chocolate);
         System.out.println("_____________");
-        newArgue.completeArgue(chocolate);
+        newArgue.completeArgue(chocolate, 2);
+        System.out.println(chocolate.hashCode());
     }
 }
 /*Карлсон продолжал энергично работать челюстями и, проглотив последний кусок, откинулся на подушку и тяжело вздохнул:

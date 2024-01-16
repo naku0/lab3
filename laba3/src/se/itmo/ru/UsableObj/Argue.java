@@ -1,5 +1,7 @@
 package se.itmo.ru.UsableObj;
+
 import se.itmo.ru.abstracts.*;
+import se.itmo.ru.enums.HealthCondition;
 import se.itmo.ru.interfaces.argue.CompleteArgue;
 import se.itmo.ru.interfaces.argue.WinAnArgue;
 
@@ -7,17 +9,26 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Argue implements WinAnArgue, CompleteArgue {
-    private Person person1;
-    private Person person2;
-    public Argue(Person person1, Person person2){
-        this.person1 = person1;
-        this.person2 = person2;
+    private final Person person1;
+    private final Person person2;
+
+    public Argue(Person sick, Person good) {
+        if (sick.getCondition() == HealthCondition.GOOD && good.getCondition() == HealthCondition.SICK) {
+            this.person1 = good;
+            this.person2 = sick;
+        } else {
+            this.person1 = sick;
+            this.person2 = good;
+        }
+        System.out.println(person1.getName() + " и " + person2.getName() + " поспорили!");
     }
+
     @Override
     public String winAnArgue() {
-        if (person1.getTemperature() >= 35 && person1.getTemperature() <= 37){
+        if (person1.getTemperature() >= 35 && person1.getTemperature() <= 37) {
+            person1.setCondition(HealthCondition.GOOD);
             person1.setWin(true);
-         return person1 + " выиграл спор";
+            return person1 + " выиграл спор";
         } else {
             person2.setWin(true);
             return person2 + " выиграл спор";
@@ -25,11 +36,11 @@ public class Argue implements WinAnArgue, CompleteArgue {
     }
 
     @Override
-    public void completeArgue(ReasonOfArgue reason) {
+    public void completeArgue(ReasonOfArgue reason, int amountOfMedicine) {
 
-        System.out.print("Введите количество порошка для "+ person1.toString() + ": ");
-        Scanner sc = new Scanner(System.in);
-        person1.usePowder(sc.nextInt());
+        System.out.println("Введено порошка для выздоровления " + person1.getName() + ": "
+                + amountOfMedicine + ", чтобы он выздоровел: ");
+        person1.usePowder(amountOfMedicine);
         System.out.println(this.winAnArgue());
         reason.whoIsOwner(person1, person2);
         System.out.println(reason.getOwner() + " получил " + reason.getName());
